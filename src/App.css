@@ -1,0 +1,53 @@
+
+#App {
+  /* background-color: #282c34; */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  /* font-size: calc(10px + 2vmin); */
+  /* color: white; */
+}
+
+.dark {
+  background-color: #333;
+  color: #fff;
+}
+.light {
+  background-color: #fff;
+  color: #333;
+}
+
+#sl {
+  width: 400px;
+  color: rgb(21, 86, 129);
+}
+
+#fg{
+  display: flex;
+  flex-direction: row;
+  color: red;
+}
+
+#output{
+  background-color: grey;
+  position: relative;
+   width: 600px;
+   height: 70px;
+}
+
+#copyBtn{
+  position:absolute; 
+  right: 15px;
+  top: 15px;
+}
+
+
+#outP{
+  position: absolute;
+  font-size: 40px;
+  margin: 0;
+  top:10px;
+  left: 15px;
+}
