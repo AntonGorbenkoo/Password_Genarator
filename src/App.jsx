@@ -7,7 +7,9 @@ import {
   FormControlLabel, 
   Slider, 
   Checkbox,
-  Button
+  Button,
+  Alert,
+  Snackbar
 } from '@mui/material';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 
@@ -30,17 +32,19 @@ function App() {
     document.body.className = theme;
   }, [theme]);
 
-  const [value, setValue] = useState(1);
-
+  
   const handleChange = (event, newValue) => {
     setValue(newValue);
   }
   
+    const [value, setValue] = useState(1);
     const [password, setPassword] = useState('');
-    // const [passwordLength, setPasswordLength] = useState(value)
     const [lowercase, setLowercase] = useState(true);
     const [uppercase, setUppercase] = useState(true);
     const [numbers, setNumbers] = useState(true);
+
+    const [sucsessOpen, setSucsessOpen] = useState(false); //sucsess copy
+    const [errorOpen, setErrorOpen] = useState(false); // no checkbox
 
     const handleChangeNum = (event) => {
       setNumbers(event.target.checked);
@@ -74,11 +78,20 @@ function App() {
     }
     
     const handleClipboard = async () => {
-      if (password) {
-        await navigator.clipboard.writeText(password)
+      if (password.length !== 0) {
+        await navigator.clipboard.writeText(password.join(''));
+        setSucsessOpen(true);
+      }else{
+        setErrorOpen(true);
+        await navigator.clipboard.writeText('');
       }
     }
     
+    const handleClose = (event) => {
+      setSucsessOpen(false);
+      setErrorOpen(false);
+    };
+  
     
   const random = (min = 0, max = 1) => {
     return Math.floor(Math.random() * (max + 1 - min) + min)
@@ -130,6 +143,20 @@ function App() {
             onChange={handleChange}
         />
         <Brightness4Icon onClick={toggleTheme}/>
+        <Snackbar
+          open={sucsessOpen}
+          autoHideDuration={2000}
+          onClose={handleClose}
+        >
+          <Alert severity="success">Copied your Password!</Alert>
+        </Snackbar>
+        <Snackbar
+          open={errorOpen}
+          autoHideDuration={2000}
+          onClose={handleClose}
+        >
+          <Alert severity="error">No Password for copy!</Alert>
+        </Snackbar>
     </div>
   );
 }
